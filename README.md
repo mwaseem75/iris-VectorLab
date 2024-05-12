@@ -2,7 +2,8 @@
 IRIS-VectorLab is a web application that demonstrates the functionality of Vector Search. 
 
 ## Application Layout
-![image](https://github.com/mwaseem75/iris-fhir-lab/assets/18219467/c71559ae-9ce7-46a3-ab99-1800ab47adbd)
+<img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/44e53bf4-dc5d-495c-93ab-0d31cda279fe">
+
 
 ## Features
 * Translating Text to Embeddings.
@@ -38,8 +39,9 @@ USER>zpm "install iris-VectorLab"
 ```
 
 ## Run the Application
-Navigate to [http://localhost:32783/csp/fhirlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application
-![image](https://github.com/mwaseem75/iris-fhir-lab/assets/18219467/c5b861ee-4b93-4471-b682-77a086c069fe)
+Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application
+<img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4b9a0a2a-9028-4edf-983d-0835c628716e">
+
 
 
 ### Load data
@@ -47,11 +49,11 @@ Navigate to [http://localhost:32783/csp/fhirlab/index.csp](http://localhost:5277
 
 ### Add data with vector embeddings
 Click on the Resources List to view Resource records of connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
-![image](https://github.com/mwaseem75/iris-fhir-lab/assets/18219467/751d7d05-e9e5-4b3d-a7b1-a2c939cc826e)
+
 
 
 ### Perform Vector Search
 To search, type resource in the search field
-![image](https://github.com/mwaseem75/iris-fhir-lab/assets/18219467/8903a73b-9558-4700-bde6-557bfc92d923)
+
 
 Thanks
