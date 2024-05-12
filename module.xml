@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="iris-VectorLab.ZPM">
+    <Module>
+      <Name>iris-VectorLab</Name>
+      <Version>1.0.1</Version>
+      <Description>InterSystems Vector Search Use Cases</Description>
+      <Keywords>Vector,Server</Keywords>
+      <Packaging>module</Packaging>
+    <SourcesRoot>src</SourcesRoot>
+    <Resource Name="dc.PKG"/>
+    <Invoke Class="dc.VectorLab.Base" Method="init"></Invoke>
+    <CSPApplication
+        Url="/csp/vectorlab"
+        Path="/src/csp"
+        Directory="{$cspdir}/vectorlab"
+        ServeFiles="1"
+        Recurse="1"
+        CookiePath="/csp/vectorlab/" 
+        UseCookies="2"
+        MatchRoles=":{$dbrole}" 
+        PasswordAuthEnabled="1"
+        UnauthenticatedEnabled="0"
+       />   
+     
+     </Module>
+  </Document>
+</Export>
