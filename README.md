@@ -1,9 +1,9 @@
 # Summary
 IRIS-VectorLab is a web application that demonstrates the functionality of Vector Search. 
 
-## Application Layout
-<img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/44e53bf4-dc5d-495c-93ab-0d31cda279fe">
+[![one](https://img.shields.io/badge/Platform-InterSystems%20IRIS-blue)](https://www.intersystems.com/data-platform/) [![one](https://img.shields.io/badge/WebFrameWork-CSP-Orange)](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCSP) [![one](https://img.shields.io/badge/Interoperability-HL7%20FHIR-yellow)](https://www.hl7.org/fhir/) [![one](https://img.shields.io/badge/Python%20Library-SentenceTransformers-Maroon)](https://huggingface.co/sentence-transformers) [![OEX](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)]() [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mwaseem75/iris-fhir-lab/blob/main/LICENSE)
 
+https://huggingface.co/sentence-transformers
 
 ## Features
 * Translating Text to Embeddings.
