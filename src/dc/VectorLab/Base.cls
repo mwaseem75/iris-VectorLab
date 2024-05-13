@@ -248,7 +248,7 @@ ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 	rows = "<thead><tr><th>ID</th><th>Description</th><th>Options</th></thead>"
 	for index, row in df.iterrows():
 		
-		rows = rows + "<tr><td>"+str(row['ID'])+"</td><td>"+row['description']+"</td><td>"+"options"+"</td></tr>"
+		rows = rows + "<tr><td>"+str(row['ID'])+"</td><td>"+row['description']+"</td><td>"+""+"</td></tr>"
 		
 	
 	rows = rows + "</tobody>"			
