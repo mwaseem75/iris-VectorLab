@@ -45,11 +45,24 @@ Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52
 
 
 ### Load data
+<img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/7c38e947-541a-486a-b7ba-0e4062666bd4">
 
 
 ### Add data with vector embeddings
-Click on the Resources List to view Resource records of connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
+Click on the Resources List to view Resource records of the connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
+<img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4cd66ed0-8020-4c2f-b929-72cd6d61c5ae">
+<img width="938" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/11f66897-5df2-426d-bee1-59ce517202bf">
 
+
+### View Vector Data
+
+From application
+<img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/36fce100-deb4-4861-a624-6be1852248d9">
+
+<img width="875" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/fbe3be3e-01fc-4175-af40-f503b19c8c68">
+
+From Management portal
+<img width="950" alt="Screenshot 2024-05-13 133805" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/008996ea-8fd5-4a26-861b-bc92cf37a31a">
 
 
 ### Perform Vector Search
