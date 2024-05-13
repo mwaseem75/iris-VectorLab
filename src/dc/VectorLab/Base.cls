@@ -1,11 +1,15 @@
 Class dc.VectorLab.Base Extends %RegisteredObject
 {
 
+// Create table
+
 ClassMethod init() As %Status
 {
 	set createTable = ..CreateTable()
 	return $$$OK
 }
+
+// Get connection string
 
 ClassMethod GetConnString() As %String [ Language = python ]
 {
@@ -18,6 +22,8 @@ ClassMethod GetConnString() As %String [ Language = python ]
 	CONNECTION_STRING = f"iris://{username}:{password}@{hostname}:{port}/{namespace}"
 	return CONNECTION_STRING
 }
+
+// Function to create the table
 
 ClassMethod CreateTable() As %Status
 {
@@ -32,6 +38,8 @@ ClassMethod CreateTable() As %Status
 	}
 	return $$$OK
 }
+
+// add some dummy data for testing purpose
 
 ClassMethod InsertData() As %String [ Language = python ]
 {
@@ -95,6 +103,8 @@ ClassMethod InsertData() As %String [ Language = python ]
 	conn.close()
 }
 
+// Save vector data
+
 ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
 {
 	
@@ -136,12 +146,16 @@ ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
 	conn.close()
 }
 
+// Delete record
+
 ClassMethod DeleteVector(id As %Integer) As %Status
 {
 	&sql(DELETE FROM SQLUser.VectorLab WHERE ID = :id)
     IF SQLCODE<0 {WRITE "SQLCODE error ",SQLCODE," ",%msg  QUIT}
  	return $$$OK
 }
+
+// View Vector data
 
 ClassMethod ViewData(id As %Integer, opt As %Integer) As %String
 {
@@ -159,11 +173,18 @@ ClassMethod ViewData(id As %Integer, opt As %Integer) As %String
 	
 	set total = $vectorop("count",desc)
 	set vectorStr = ""
-	for i = 1:1:total set vectorStr = vectorStr_","_$vector(desc,i)
-	
+	for i = 1:1:total 
+		{
+		if (i = 1)
+			{ set vectorStr = $vector(desc,i)}
+		else
+			{ set vectorStr = vectorStr_", "_$vector(desc,i)}	
+		}
 	return vectorStr
 	}
 }
+
+// Select top 3 similar vector records
 
 ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 {
@@ -195,6 +216,8 @@ ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 	results_df = pd.DataFrame(results) 
 	print(results_df.head())
 }
+
+// Display HTML data
 
 ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 {

@@ -199,7 +199,7 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="serverModalLabel">Vector Data</h5>
+        <h5 class="modal-title" id="serverModalLabel">View Vector Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -211,7 +211,7 @@
       <label for="desc">Description</label>
       <input type="text" class="form-control" id="descv" >
       <label for="vdesc">Vector Data</label>
-      <textarea class="form-control" id="vdesc" rows="12" ></textarea>
+      <textarea class="form-control" id="vdesc" rows="9" ></textarea>
     </div>
 
   </form>
@@ -223,30 +223,7 @@
     </div>
   </div>
 </div>
-<!-- Please wait diag-->
-<div class="modal fade" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="serverModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="serverModalLabel">Load data</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-     
-    <!-- First String Field -->
-   
-	<h3 class="modal-title" id="serverModalLabel">Please wait system is loading vector data</h3>
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" id = "addbtn" class="btn btn-primary" onclick="save()">Save</button>        
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
-      </div>
-    </div>
-  </div>
-</div>
+
 	 <!--   Core JS Files   -->
         <script src="resources/js/jquery.min.js"></script>
 		<script src="resources/js/jquery-ui.min.js"></script>
