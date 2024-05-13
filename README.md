@@ -39,7 +39,7 @@ USER>zpm "install iris-VectorLab"
 ```
 
 ## Run the Application
-Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application
+Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application. (by using demo|demo)
 <img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4b9a0a2a-9028-4edf-983d-0835c628716e">
 
 
