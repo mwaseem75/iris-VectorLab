@@ -184,7 +184,7 @@ ClassMethod ViewData(id As %Integer, opt As %Integer) As %String
 	}
 }
 
-// Select top 3 similar vector records
+// Select top 5 similar vector records
 
 ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 {
