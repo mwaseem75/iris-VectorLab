@@ -69,11 +69,8 @@ Type "The fox and the chicken" in search and click Vector search button
 
 Application will get the top 5 similar vector data.
 
-Try to do a traditional search by clicking the Normal search button, system will not retrieve any record.
+Now we will do a traditional search by clicking the Normal search button, as expected system will not retrieve any record.
 <img width="853" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/fcd8d095-590b-40dc-91aa-69635ae84f10">
-
-Application will not get any data.
-
 
 
 Thanks
