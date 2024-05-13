@@ -5,8 +5,9 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 
 
 ## Features
-* Translating Text to Embeddings.
-* Inserting VECTOR-typed Data
+* Text to Embeddings Translation.
+* VECTOR-typed Data Insertion.
+* View Vector Data
 * Perform Vector Search.
 * Demonstrate the difference between normal and vector search
 
