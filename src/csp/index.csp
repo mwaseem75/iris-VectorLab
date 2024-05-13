@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>IRIS FHIR LAB</title>
+    <title>IRIS VectorLab</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="resources/img/icon.png" type="image/x-icon" />
+    <link rel="icon" href="resources/img/vectorsearch.png" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="resources/js/webfont.min.js"></script>
@@ -32,7 +32,6 @@
     <link rel="stylesheet" type="text/css" href="resources/css/atlantis.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/adminlte.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
-	<link rel="stylesheet" type="text/css" href="resources/css/buttons.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/jquery.dataTables.min.css">
 
   <style>
@@ -51,56 +50,43 @@
     		}  
     	table {
     width: 100%;
-    border-collapse: collapse;
-  }
+    border-collapse: collapse;}
+    
 
   app-right-align {
     text-align: right;
     border: 1px solid #ddd; /* Optional: Add border for better visualization */
     padding: 8px; /* Optional: Add padding for better spacing */
   }	
+  
  </style>
 
 
 </head>
 
-
 <body>
-
-
-  <csp:class encoded=1 super="%CSP.Page, dc.VectorLab.Base">
-
+ <csp:class encoded=1 super="%CSP.Page, dc.VectorLab.Base">
  <script language="Cache" runat="Server">
 	set bid = $Get(%request.Data("bid",1),0)  
 	set ser = ..EscapeHTML($Get(%request.Data("search",1),""))
 	set serLen = $LENGTH(ser)
+	if (serLen = 0) { set bid = 0}
 	set ser2 = "%"_ser_"%"
 </script>
 
 
  <csp:IF condition= "bid = 1">
-    
-    
-   <script language=SQL name=query>
-         SELECT id,description FROM SQLUser.VectorLab
-         where id = :bid 
- </script>
  <CSP:ELSE condition= "bid = 2"> 
- 	  
- 	  <script language=SQL name=query>
+	  <script language=SQL name=query>
          SELECT id,description FROM SQLUser.VectorLab 
 		 where description like :ser2
  </script>
-  </csp:if>	
-<csp:IF condition= "serLen = 0">
+ </csp:if>	
+ <csp:IF condition= "serLen = 0">
    <script language=SQL name=query>
          SELECT id,description FROM SQLUser.VectorLab     
  </script>
  </csp:if>	
-
-
-
-
 
  <div class="container" style="padding-top:5px">
            <!-- NavBar -->
@@ -119,59 +105,53 @@
        </div>     
      <div class="row" style="padding-top: 10px;">  
      <div class="container">         
-        
-       
-     
-   
-                        <div class="table-responsive">
+         
+    <div class="table-responsive">
                         <!-- Search input -->
        
         <form id="myForm" method="POST"> 
         <div class="row">
-        <div class="col-lg-6 col-6" style="padding-left: 25px;">   
+        <div class="col-lg-5 col-5" style="padding-left: 25px;">   
         <input type="text" class="form-control" id="search" placeholder="Search" value="#(ser)#">
         </div>  
         <!-- Buttons -->
-        <div class="col-lg-6 col-6">  
-        <button class="btn btn-primary mr-2" id="buttonN">Vector Search</button>
-        <button class="btn btn-primary" id="buttonV">Normal Search</button>
-        <button class="btn btn-primary" id="buttonL">Load Data</button>
-        <button class="btn btn-primary" id="buttonA">Add Record</button>
+        <div class="col-lg-7 col-7">  
+        <button class="btn btn-primary " id="buttonN">Vector Search</button>
+        <button class="btn btn-primary mr-" id="buttonV">Normal Search</button>
+        <button class="btn btn-primary" id="buttonL">Load Vectors Data</button>
+        <button class="btn btn-primary" id="buttonA" onclick="SaveDiag()">Add Vector Data</button>
         </div>
         </div>
         </form>
-      
-							
-							
-							<table id="resource-data" class="table table-striped table-bordered" style="width:100%">														
+      	
+		<table id="resource-data" class="table table-striped table-bordered table-sm" style="width:100%">														
 								
-							<CSP:IF condition= "bid = 1"> 
- 	  							  #(..VectorSearchHTML(ser))#
- 							 <CSP:ELSE>	
-  								
-								<thead class="table-header">
-    							<tr>
-      							<th>ID</th>
-      							<th>Description</th>
-      							<th>Options</th>
-    							</tr>
-  								</thead>
-						    	
-						    	<csp:while condition="query.Next()">
-                                <tr>					
-                                        <td>  <span> #(..EscapeHTML(query.GetData(1)))#</span></td>						
-                                        <td> <span style="font-size: 1.2em;"> #(..EscapeHTML(query.GetData(2)))#</span> <br>
-                                             </td> 
-                                        <td class="app-right-align" > 
+			<CSP:IF condition= "bid = 1"> 
+ 			  #(..VectorSearchHTML(ser))#
+ 		    <CSP:ELSE>	
+  			<thead class="table-header">
+    			<tr>
+      			<th>ID</th>
+      			<th>Description</th>
+      			<th>Options</th>
+    			</tr>
+  				</thead>
+			  	
+			<csp:while condition="query.Next()">
+                <tr>					
+                <td>  <span> #(..EscapeHTML(query.GetData(1)))#</span></td>						
+                <td> <span style="font-size: 1.2em;"> #(..EscapeHTML(query.GetData(2)))#</span> <br>
+                </td> 
+                <td class="app-right-align" > 
                                             
-                                            <span style="padding: 10px;"> <a href="javascript:void(0);" onclick="viewServer('#(..EscapeHTML(query.GetData(1)))#')" style="color: #212529;"> <i class="bi bi-pencil-square"></i> Edit </a></span>    
-                                            <span> <a href="javascript:void(0);" onclick="deleteServer('#(..EscapeHTML(query.GetData(1)))#')" style="color: #212529;"> <i class="bi bi-x-circle"></i> Delete </a> </span> </td> 
-                                </tr>
-   				            </csp:while>  
-   				            </csp:if> 
- 						</table>  
- 						</div>  <!--table div -->    							
-                    </div> <!-- card header -->                                   
+                    <span style="padding: 10px;"> <a href="javascript:void(0);" onclick="viewData('#(..EscapeHTML(query.GetData(1)))#')" style="color: #212529;"> <i class="bi bi-pencil-square"></i> View Data </a></span>    
+                    <span> <a href="javascript:void(0);" onclick="deleteVector('#(..EscapeHTML(query.GetData(1)))#')" style="color: #212529;"> <i class="bi bi-x-circle"></i> Delete </a> </span> </td> 
+                </tr>
+   			</csp:while>  
+   			</csp:if> 
+ 			</table>  
+ 			</div>  <!--table div -->    							
+            </div> <!-- card header -->                                   
                    
                 </div>              
             </div>  <!-- /.container -->
@@ -182,26 +162,94 @@
                 <nav class="pull-left">
                     <ul class="nav">
                         <li class="nav-item">
-
                             2024, IRIS-VectorLab
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-
-                            </a>
-                        </li>
+                        </li>                       
                     </ul>
                 </nav>
 
             </div>
         </footer>
     </div> <!-- /row -->
+    <!-- Insert Record -->
+<div class="modal fade" id="serverModal" tabindex="-1" role="dialog" aria-labelledby="serverModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serverModalLabel">Add Vector Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+    <!-- First String Field -->
+    <div class="form-group">
+      <label for="field1">*Description:</label>
+      <textarea class="form-control" id="desc" rows="5" required></textarea>
+    </div>
+
+  </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id = "addbtn" class="btn btn-primary" onclick="save()">Save</button>        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- view Record -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="serverModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serverModalLabel">Vector Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+    <!-- First String Field -->
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <input type="text" class="form-control" id="descv" >
+      <label for="vdesc">Vector Data</label>
+      <textarea class="form-control" id="vdesc" rows="12" ></textarea>
+    </div>
+
+  </form>
+      </div>
+      <div class="modal-footer">
+         
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Please wait diag-->
+<div class="modal fade" id="waitModel" tabindex="-1" role="dialog" aria-labelledby="serverModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serverModalLabel">Load data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     
+    <!-- First String Field -->
+   
+	<h3 class="modal-title" id="serverModalLabel">Please wait system is loading vector data</h3>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" id = "addbtn" class="btn btn-primary" onclick="save()">Save</button>        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
 	 <!--   Core JS Files   -->
         <script src="resources/js/jquery.min.js"></script>
 		<script src="resources/js/jquery-ui.min.js"></script>
@@ -265,16 +313,48 @@
     });
     
      $('#buttonL').click(function() {
-	    var val =  #server(..InserData())#; 	
+	    $('#serverModal').modal('show');	
+	    var val =  #server(..InsertData())#;
+	    $('#serverModal').modal('hide');	 	
 		window.location.reload();	
       });
 
-
+        function SaveDiag() {		 	      	       	       	 		 
+   		 var button = document.getElementById('addbtn');
+         button.style.display = '';
+	     $('#serverModal').modal('show');		 
+     }
      
-   
-    	 
-                                 
-    	</script>
-
- </body>
+     function save() {		 	      	       	       	 		 
+       	 var vall = document.getElementById('desc').value;
+       	  if (!vall.trim()) {
+       		 alert('Please enter description first.');
+        	 return;
+          }
+		
+		 var val =  #server(..SaveVector(vall))#; 
+		 $('#serverModal').modal('hide');
+	     window.location.reload();		 
+     }
+     function deleteVector(vectorID) {	
+         var result = confirm('Are you sure you want to delete the record?');	 	      	       	       	 		 
+       	 
+		  if (result) {
+      		// User clicked "OK"
+      		var obj =  #server(..DeleteVector(vectorID))#;		
+      		window.location.reload();		 	      		
+    		} 
+     }
+     function viewData(vectorID) {		 	      	 
+      	  	 		 
+		 var desc =  #server(..ViewData(vectorID,1))#;
+		 var val = document.getElementById('descv');
+		 val.value = desc;val.disabled = true;
+		 var desc =  #server(..ViewData(vectorID,2))#;
+		 var val = document.getElementById('vdesc');
+		 val.value = desc;val.disabled = true;
+		 $('#viewModal').modal('show');		 
+     }
+   	</script>
+</body>
 </html>

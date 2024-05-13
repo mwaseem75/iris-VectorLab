@@ -14,18 +14,9 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 RUN pip3  install --upgrade pip && pip install --no-cache-dir sentence-transformers
-#RUN pip3 install sqlalchemy-iris
-#RUN pip3 install pandas
-#RUN pip3 install sentence-transformers
+
 
 RUN iris start IRIS \
    && iris session IRIS < iris.script \
    && iris stop IRIS quietly
 
-    ## Start IRIS
-#RUN --mount=type=bind,src=.,dst=. \
-#pip3 install -r requirements.txt && \
-#pip3 install --upgrade pip && pip install --no-cache-dir sentence-transformers && \
-#iris start IRIS && \
-#iris session IRIS < iris.script \
-#iris stop IRIS quietly

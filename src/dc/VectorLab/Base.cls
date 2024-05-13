@@ -7,26 +7,6 @@ ClassMethod init() As %Status
 	return $$$OK
 }
 
-ClassMethod ListResources() As %String
-{
-	//Get Active Server data based on Global Variable 
-	//Set obj = ##class(dc.FhirLab.Server).%OpenId(^FhirLabServer)
-	//If Url and ApiKey is defined
-	//if $isobject(obj)  
-	//{  
-	  
-	//  set resources =  "Resources"
-	
-	//  return resources
-  //	}
-	//Active Server data is not defined
-  	//else
-  	//{ 
-  		return "Not able to get server Info.."
-  	//}
-  	return ""
-}
-
 ClassMethod GetConnString() As %String [ Language = python ]
 {
 	import os
@@ -53,7 +33,7 @@ ClassMethod CreateTable() As %Status
 	return $$$OK
 }
 
-ClassMethod InserData() As %String [ Language = python ]
+ClassMethod InsertData() As %String [ Language = python ]
 {
 	
 	from sqlalchemy import create_engine,text
@@ -113,6 +93,76 @@ ClassMethod InserData() As %String [ Language = python ]
               	  })
 	
 	conn.close()
+}
+
+ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
+{
+	
+	from sqlalchemy import create_engine,text
+	import iris
+	connStr = iris.cls(__name__).GetConnString()
+	# Step 1: Prepare the Data (Same as before)
+	documents =[ desc ]
+    # Step 2: Generate Document Embeddings
+	from sentence_transformers import SentenceTransformer
+	import numpy as np 
+	import pandas as pd
+
+	df = pd.DataFrame(documents)
+	df.columns = ['description']
+	model = SentenceTransformer('all-MiniLM-L6-v2')
+
+    # Generate embeddings for each document
+	document_embeddings = model.encode(documents)
+
+	df['description_vector'] = document_embeddings.tolist()
+    
+
+	engine = create_engine(connStr)
+    
+	with engine.connect() as conn:
+		with conn.begin():					
+			for index, row in df.iterrows():
+				sql = text("""
+                    INSERT INTO VectorLab 
+                    (description, description_vector) 
+                    VALUES (:description, TO_VECTOR(:description_vector))
+                """)
+				conn.execute(sql, {
+                    'description': row['description'], 
+                    'description_vector': str(row['description_vector'])
+              	  })
+	
+	conn.close()
+}
+
+ClassMethod DeleteVector(id As %Integer) As %Status
+{
+	&sql(DELETE FROM SQLUser.VectorLab WHERE ID = :id)
+    IF SQLCODE<0 {WRITE "SQLCODE error ",SQLCODE," ",%msg  QUIT}
+ 	return $$$OK
+}
+
+ClassMethod ViewData(id As %Integer, opt As %Integer) As %String
+{
+	if opt = 1
+	{
+	&sql(SELECT description into :desc FROM SQLUser.VectorLab WHERE ID = :id)
+    IF SQLCODE<0 {WRITE "SQLCODE error ",SQLCODE," ",%msg  QUIT}
+ 	return desc
+	}
+	if opt = 2
+	{
+	&sql(SELECT description_vector into :desc FROM SQLUser.VectorLab WHERE ID = :id)
+    IF SQLCODE<0 {WRITE "SQLCODE error ",SQLCODE," ",%msg  QUIT}
+ 	
+	
+	set total = $vectorop("count",desc)
+	set vectorStr = ""
+	for i = 1:1:total set vectorStr = vectorStr_","_$vector(desc,i)
+	
+	return vectorStr
+	}
 }
 
 ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
