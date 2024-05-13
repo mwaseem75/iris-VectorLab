@@ -10,10 +10,6 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 * Perform Vector Search.
 * Demonstrate the difference between normal and vector search
 
-## Online Demo
-[https://irisfhirlab.demo.community.intersystems.com/csp/fhirlab/index.csp](https://irisvectorlab.demo.community.intersystems.com/csp/vectorlab/index.csp) by using demo | demo
-
-
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
 
