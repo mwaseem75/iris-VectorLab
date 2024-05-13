@@ -3,13 +3,16 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 
 [![one](https://img.shields.io/badge/Platform-InterSystems%20IRIS-blue)](https://www.intersystems.com/data-platform/) [![one](https://img.shields.io/badge/WebFrameWork-CSP-Orange)](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCSP) [![one](https://img.shields.io/badge/Technology-Vector%20Search-yellow)](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) [![one](https://img.shields.io/badge/Python%20Library-Sentence%20Transformers-Maroon)](https://www.sbert.net/) [![OEX](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)]() [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mwaseem75/iris-fhir-lab/blob/main/LICENSE)
 
-
 ## Features
 * Text to Embeddings Translation.
 * VECTOR-typed Data Insertion.
 * View Vector Data
 * Perform Vector Search.
 * Demonstrate the difference between normal and vector search
+
+## Online Demo
+[https://irisfhirlab.demo.community.intersystems.com/csp/fhirlab/index.csp](https://irisvectorlab.demo.community.intersystems.com/csp/vectorlab/index.csp) by using demo | demo
+
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
