@@ -43,7 +43,6 @@ Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52
 <img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4b9a0a2a-9028-4edf-983d-0835c628716e">
 
 
-
 ### Load data
 <img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/7c38e947-541a-486a-b7ba-0e4062666bd4">
 
@@ -52,7 +51,6 @@ Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52
 Click on the Resources List to view Resource records of the connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
 <img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4cd66ed0-8020-4c2f-b929-72cd6d61c5ae">
 <img width="938" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/11f66897-5df2-426d-bee1-59ce517202bf">
-
 
 ### View Vector Data
 
@@ -66,8 +64,17 @@ From Management portal
 <img width="950" alt="Screenshot 2024-05-13 133805" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/008996ea-8fd5-4a26-861b-bc92cf37a31a">
 
 
-### Perform Vector Search
-To search, type resource in the search field
+## Performing Vector Search
+Type "The fox and the chicken" in search and click Vector search button
+<img width="852" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/9099f686-4308-4bf6-af9e-f3932ad8923f">
+
+Application will get the top 5 similar vector data.
+
+Try to do a traditional search by clicking the Normal search button, system will not retrieve any record.
+<img width="853" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/fcd8d095-590b-40dc-91aa-69635ae84f10">
+
+Application will not get any data.
+
 
 
 Thanks
