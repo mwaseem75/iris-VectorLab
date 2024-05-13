@@ -287,10 +287,8 @@
     });
     
      $('#buttonL').click(function() {
-	    $('#serverModal').modal('show');	
 	    var val =  #server(..InsertData())#;
-	    $('#serverModal').modal('hide');	 	
-		window.location.reload();	
+	 	window.location.reload();	
       });
 
         function SaveDiag() {		 	      	       	       	 		 
