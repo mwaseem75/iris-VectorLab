@@ -67,7 +67,6 @@ ClassMethod InsertData() As %String [ Language = python ]
 	]
     # Step 2: Generate Document Embeddings
 	from sentence_transformers import SentenceTransformer
-	import numpy as np 
 	import pandas as pd
 
 	df = pd.DataFrame(documents)
@@ -115,7 +114,6 @@ ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
 	documents =[ desc ]
     # Step 2: Generate Document Embeddings
 	from sentence_transformers import SentenceTransformer
-	import numpy as np 
 	import pandas as pd
 
 	df = pd.DataFrame(documents)
@@ -190,7 +188,6 @@ ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 {
 	
 	from sentence_transformers import SentenceTransformer
-	import numpy as np 
 	import pandas as pd
 	from sqlalchemy import create_engine,text
 
@@ -253,6 +250,19 @@ ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 	
 	rows = rows + "</tobody>"			
 	return rows
+}
+
+// List down all records
+
+ClassMethod ListData() As %String [ Language = python ]
+{
+	import pandas as pd
+	
+	import iris
+	rs = iris.sql.exec("select id, description from vectorlab")
+		
+	results_df = pd.DataFrame(rs) 
+	print(results_df.head())
 }
 
 }
