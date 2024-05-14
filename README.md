@@ -3,7 +3,6 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 
 [![one](https://img.shields.io/badge/Platform-InterSystems%20IRIS-blue)](https://www.intersystems.com/data-platform/) [![one](https://img.shields.io/badge/WebFrameWork-CSP-Orange)](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCSP) [![one](https://img.shields.io/badge/Technology-Vector%20Search-yellow)](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) [![one](https://img.shields.io/badge/Python%20Library-Sentence%20Transformers-Maroon)](https://www.sbert.net/) [![OEX](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)]() [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mwaseem75/iris-fhir-lab/blob/main/LICENSE)
 
-
 ## Features
 * Text to Embeddings Translation.
 * VECTOR-typed Data Insertion.
@@ -70,11 +69,8 @@ Type "The fox and the chicken" in search and click Vector search button
 
 Application will get the top 5 similar vector data.
 
-Try to do a traditional search by clicking the Normal search button, system will not retrieve any record.
+Now we will do a traditional search by clicking the Normal search button, as expected system will not retrieve any record.
 <img width="853" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/fcd8d095-590b-40dc-91aa-69635ae84f10">
-
-Application will not get any data.
-
 
 
 Thanks
