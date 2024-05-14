@@ -174,7 +174,7 @@ ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 	stmt = iris.sql.prepare("SELECT top 5 id,description,VECTOR_COSINE(description_vector, TO_VECTOR(?)) FROM SQLUser.VectorLab ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(?)) DESC")
 	results = stmt.execute(search_vector,search_vector)
 	df = pd.DataFrame(results,columns=['id', 'description','Cosine_Similarity']) 
-	print(df.head())
+	
 	rows = "<thead><tr><th>ID</th><th>Description</th><th>Cosine Similarity</th></thead>"
 	for index, row in df.iterrows():
 		rows = rows + "<tr><td>"+str(row['id'])+"</td><td>"+row['description']+"</td><td>"+str(row['Cosine_Similarity'])+"</td></tr>"
