@@ -9,20 +9,6 @@ ClassMethod init() As %Status
 	return $$$OK
 }
 
-// Get connection string
-
-ClassMethod GetConnString() As %String [ Language = python ]
-{
-	import os
-	username = 'demo'
-	password = 'demo'
-	hostname = os.getenv('IRIS_HOSTNAME', 'localhost')
-	port = '1972' 
-	namespace = 'USER'
-	CONNECTION_STRING = f"iris://{username}:{password}@{hostname}:{port}/{namespace}"
-	return CONNECTION_STRING
-}
-
 // Function to create the table
 
 ClassMethod CreateTable() As %Status
@@ -44,9 +30,7 @@ ClassMethod CreateTable() As %Status
 ClassMethod InsertData() As %String [ Language = python ]
 {
 	
-	from sqlalchemy import create_engine,text
 	import iris
-	connStr = iris.cls(__name__).GetConnString()
 	# Step 1: Prepare the Data (Same as before)
 	documents =[
     "The quick brown fox jumps over the lazy dog.",
@@ -78,38 +62,17 @@ ClassMethod InsertData() As %String [ Language = python ]
 
 	df['description_vector'] = document_embeddings.tolist()
     
-
-	engine = create_engine(connStr)
-    
-	with engine.connect() as conn:
-		with conn.begin():
-			# remove existing data
-			sql = text("""
-                    DELETE FROM VectorLab                    
-                """)
-			conn.execute(sql)
-			for index, row in df.iterrows():
-				sql = text("""
-                    INSERT INTO VectorLab 
-                    (description, description_vector) 
-                    VALUES (:description, TO_VECTOR(:description_vector))
-                """)
-				conn.execute(sql, {
-                    'description': row['description'], 
-                    'description_vector': str(row['description_vector'])
-              	  })
-	
-	conn.close()
+	for index, row in df.iterrows():
+		iris.cls(__name__).SaveVector(row['description'],str(row['description_vector']))
 }
 
 // Save vector data
 
-ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
+ClassMethod SaveData(desc As %String) As %String [ Language = python ]
 {
 	
 	from sqlalchemy import create_engine,text
 	import iris
-	connStr = iris.cls(__name__).GetConnString()
 	# Step 1: Prepare the Data (Same as before)
 	documents =[ desc ]
     # Step 2: Generate Document Embeddings
@@ -125,23 +88,19 @@ ClassMethod SaveVector(desc As %String) As %String [ Language = python ]
 
 	df['description_vector'] = document_embeddings.tolist()
     
+	for index, row in df.iterrows():
+		iris.cls(__name__).SaveVector(row['description'],str(row['description_vector']))
+}
 
-	engine = create_engine(connStr)
-    
-	with engine.connect() as conn:
-		with conn.begin():					
-			for index, row in df.iterrows():
-				sql = text("""
-                    INSERT INTO VectorLab 
-                    (description, description_vector) 
-                    VALUES (:description, TO_VECTOR(:description_vector))
-                """)
-				conn.execute(sql, {
-                    'description': row['description'], 
-                    'description_vector': str(row['description_vector'])
-              	  })
+ClassMethod SaveVector(desc As %String, descvec As %String) As %Status
+{
 	
-	conn.close()
+  	&sql(INSERT INTO SQLUser.VectorLab  VALUES (:desc,to_vector(:descvec)))
+ 	if SQLCODE '= 0 {
+   	 	write !, "Insert failed, SQLCODE= ", SQLCODE, ! ,%msg
+    	quit
+  	}
+   	return $$$OK
 }
 
 // Delete record
@@ -189,27 +148,13 @@ ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 	
 	from sentence_transformers import SentenceTransformer
 	import pandas as pd
-	from sqlalchemy import create_engine,text
-
 	model = SentenceTransformer('all-MiniLM-L6-v2')
 
-	search_vector = model.encode(aurg, normalize_embeddings=True).tolist() # Convert search phrase into a vector
+	search_vector = str(model.encode(aurg, normalize_embeddings=True).tolist()) # Convert search phrase into a vector
 	
 	import iris
-	connStr = iris.cls(__name__).GetConnString()
-	engine = create_engine(connStr)
-    
-	with engine.connect() as conn:
-		with conn.begin():
-			sql = text("""
-            	SELECT TOP 5 id,description FROM VectorLab 
-            	ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(:search_vector)) DESC
-        	""")
-
-			results = conn.execute(sql, {'search_vector': str(search_vector)}).fetchall()
-
-	conn.close()
-	#results_df = pd.DataFrame(results, columns=['description','description_vector']).iloc[:, :-1] # Remove vector
+	stmt = iris.sql.prepare("SELECT top 5 id,description FROM SQLUser.VectorLab ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(?)) DESC")
+	results = stmt.execute(search_vector)
 	results_df = pd.DataFrame(results) 
 	print(results_df.head())
 }
@@ -219,35 +164,21 @@ ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 {
 	from sentence_transformers import SentenceTransformer	
-	from sqlalchemy import create_engine,text
 	import pandas as pd
 
 	model = SentenceTransformer('all-MiniLM-L6-v2')
 
-	search_vector = model.encode(aurg, normalize_embeddings=True).tolist() # Convert search phrase into a vector
+	search_vector = str(model.encode(aurg, normalize_embeddings=True).tolist()) # Convert search phrase into a vector
 	
 	import iris
-	connStr = iris.cls(__name__).GetConnString()
-	engine = create_engine(connStr)
-    
-	with engine.connect() as conn:
-		with conn.begin():
-			sql = text("""
-            	SELECT TOP 5 ID,description,VECTOR_COSINE(description_vector, TO_VECTOR(:search_vector)) as "Cosine_Similarity" FROM VectorLab 
-            	ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(:search_vector)) DESC
-        	""")
-
-			results = conn.execute(sql, {'search_vector': str(search_vector)}).fetchall()
-
-	conn.close()
-	df = pd.DataFrame(results) 
-	
+	stmt = iris.sql.prepare("SELECT top 5 id,description,VECTOR_COSINE(description_vector, TO_VECTOR(?)) FROM SQLUser.VectorLab ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(?)) DESC")
+	results = stmt.execute(search_vector,search_vector)
+	df = pd.DataFrame(results,columns=['id', 'description','Cosine_Similarity']) 
+	print(df.head())
 	rows = "<thead><tr><th>ID</th><th>Description</th><th>Cosine Similarity</th></thead>"
 	for index, row in df.iterrows():
+		rows = rows + "<tr><td>"+str(row['id'])+"</td><td>"+row['description']+"</td><td>"+str(row['Cosine_Similarity'])+"</td></tr>"
 		
-		rows = rows + "<tr><td>"+str(row['ID'])+"</td><td>"+row['description']+"</td><td>"+str(row['Cosine_Similarity'])+"</td></tr>"
-		
-	
 	rows = rows + "</tobody>"			
 	return rows
 }
@@ -259,7 +190,7 @@ ClassMethod ListData() As %String [ Language = python ]
 	import pandas as pd
 	
 	import iris
-	rs = iris.sql.exec("select id, description from vectorlab")
+	rs = iris.sql.exec("select id, description from SQLUser.vectorlab")
 		
 	results_df = pd.DataFrame(rs) 
 	print(results_df.head())

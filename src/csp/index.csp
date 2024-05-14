@@ -304,7 +304,7 @@
         	 return;
           }
 		
-		 var val =  #server(..SaveVector(vall))#; 
+		 var val =  #server(..SaveData(vall))#; 
 		 $('#serverModal').modal('hide');
 	     window.location.reload();		 
      }
