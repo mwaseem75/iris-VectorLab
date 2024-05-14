@@ -39,11 +39,9 @@ USER>zpm "install iris-VectorLab"
 
 ## Run the Application
 Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application. (by using demo|demo)
-<img width="868" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/4b9a0a2a-9028-4edf-983d-0835c628716e">
+<img width="841" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/8404f157-d1ac-4213-be6e-c875b8ef6fb5">
 
-
-### Load data
-<img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/7c38e947-541a-486a-b7ba-0e4062666bd4">
+Application already loaded some dummy data for testing purposes.
 
 
 ### Add data with vector embeddings
@@ -62,6 +60,9 @@ From application
 From Management portal
 <img width="950" alt="Screenshot 2024-05-13 133805" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/008996ea-8fd5-4a26-861b-bc92cf37a31a">
 
+### Load data
+If needed, Load data button will remove all the data and load the fresh data.
+<img width="845" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/7c38e947-541a-486a-b7ba-0e4062666bd4">
 
 ## Performing Vector Search
 Type "The fox and the chicken" in search and click Vector search button
