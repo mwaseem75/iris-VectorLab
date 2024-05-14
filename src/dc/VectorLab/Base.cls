@@ -6,6 +6,7 @@ Class dc.VectorLab.Base Extends %RegisteredObject
 ClassMethod init() As %Status
 {
 	set createTable = ..CreateTable()
+	do ..InsertData()
 	return $$$OK
 }
 
@@ -152,9 +153,9 @@ ClassMethod VectorSearch(aurg As %String) As %String [ Language = python ]
 	search_vector = str(model.encode(aurg, normalize_embeddings=True).tolist()) # Convert search phrase into a vector
 	
 	import iris
-	stmt = iris.sql.prepare("SELECT top 5 id,description FROM SQLUser.VectorLab ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(?)) DESC")
-	results = stmt.execute(search_vector)
-	results_df = pd.DataFrame(results) 
+	stmt = iris.sql.prepare("SELECT top 5 id,description,VECTOR_COSINE(description_vector, TO_VECTOR(?)) FROM SQLUser.VectorLab ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(?)) DESC")
+	results = stmt.execute(search_vector,search_vector)
+	results_df = pd.DataFrame(results,columns=['id', 'description','Cosine_Similarity'])
 	print(results_df.head())
 }
 
@@ -190,9 +191,9 @@ ClassMethod ListData() As %String [ Language = python ]
 	
 	import iris
 	rs = iris.sql.exec("select id, description from SQLUser.vectorlab")
-		
-	results_df = pd.DataFrame(rs) 
-	print(results_df.head())
+			
+	df = pd.DataFrame(rs,columns=['id', 'description']) 
+	print(df.to_string())
 }
 
 }
