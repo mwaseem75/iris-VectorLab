@@ -1,2 +1,2 @@
-sqlalchemy-iris
+sentence-transformers 
 pandas

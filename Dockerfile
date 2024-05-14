@@ -12,7 +12,7 @@ COPY module.xml module.xml
 COPY iris.script iris.script
 COPY requirements.txt requirements.txt
 
-RUN pip3 install -r requirements.txt
+#RUN pip3 install -r requirements.txt
 RUN pip3  install --upgrade pip && pip install --no-cache-dir sentence-transformers
 
 
