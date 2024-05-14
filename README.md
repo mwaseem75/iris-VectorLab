@@ -37,12 +37,52 @@ Open IRIS for Health installation with IPM client installed. Call in any namespa
 USER>zpm "install iris-VectorLab"
 ```
 
-## Run the Application
-Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application. (by using demo|demo)
-<img width="841" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/8404f157-d1ac-4213-be6e-c875b8ef6fb5">
 
 Application already loaded some dummy data for testing purposes.
 
+## Test functionality through IRIS terminal
+Run the below command to start IRIS terminal from VS CODE terminal
+```
+$ docker-compose exec iris iris session iris
+```
+<img width="862" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/82786e92-e187-4b42-b2aa-70453eefb17e">
+
+### View existing data 
+Run the below command in IRIS terminal to view the existing data
+```
+do ##class(dc.VectorLab.Base).ListData()
+```
+<img width="846" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/db04e185-56d7-409c-87f5-a134e206cc5d">
+
+### Inserting vector data
+Run the below command to insert vector data, Pass the desired description as an argument
+```
+do ##class(dc.VectorLab.Base).SaveData("InterSystems IRIS Data Platform 2024.1 introduces Vector Search")
+```
+Run the ListData command again to view the data
+<img width="823" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/1db36edf-1bde-490f-97c3-fd6835186593">
+
+### View vector data
+Run the below command to view vector data in IRIS terminal and pass the ID which is 17 in our case.
+```
+set vector =  ##class(dc.VectorLab.Base).ViewData(17,2) 
+write vector
+```
+<img width="830" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/5e63b1c1-b04a-413d-9373-f3b05b26e0f3">
+
+### Performing Vector Search
+Run the below command to search vector data
+```
+set vector =  ##class(dc.VectorLab.Base).VectorSearch("The fox and the chicken")
+```
+Application will get the top 5 similar records
+<img width="833" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/00e39315-7e86-4460-babf-e93339ea9716">
+
+
+
+## Test the functionality by Running Web Application
+Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application. (by using demo|demo)
+<img width="841" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/8404f157-d1ac-4213-be6e-c875b8ef6fb5">
 
 ### Add data with vector embeddings
 Click on the Resources List to view Resource records of the connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
