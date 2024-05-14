@@ -71,7 +71,6 @@ ClassMethod InsertData() As %String [ Language = python ]
 ClassMethod SaveData(desc As %String) As %String [ Language = python ]
 {
 	
-	from sqlalchemy import create_engine,text
 	import iris
 	# Step 1: Prepare the Data (Same as before)
 	documents =[ desc ]
