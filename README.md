@@ -7,7 +7,7 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 * Text to Embeddings Translation.
 * VECTOR-typed Data Insertion.
 * View Vector Data
-* Perform Vector Search.
+* Perform Vector Search by using VECTOR_DOT_PRODUCT and VECTOR_COSINE functions.
 * Demonstrate the difference between normal and vector search
 
 ## Prerequisites
@@ -65,7 +65,7 @@ From Management portal
 
 ## Performing Vector Search
 Type "The fox and the chicken" in search and click Vector search button
-<img width="852" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/9099f686-4308-4bf6-af9e-f3932ad8923f">
+<img width="848" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/cba18b3b-275b-4b7e-bbe1-9a05bce26a5c">
 
 Application will get the top 5 similar vector data.
 
