@@ -233,7 +233,7 @@ ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 	with engine.connect() as conn:
 		with conn.begin():
 			sql = text("""
-            	SELECT TOP 5 ID,description FROM VectorLab 
+            	SELECT TOP 5 ID,description,VECTOR_COSINE(description_vector, TO_VECTOR(:search_vector)) as "Cosine_Similarity" FROM VectorLab 
             	ORDER BY VECTOR_DOT_PRODUCT(description_vector, TO_VECTOR(:search_vector)) DESC
         	""")
 
@@ -242,10 +242,10 @@ ClassMethod VectorSearchHTML(aurg As %String) As %String [ Language = python ]
 	conn.close()
 	df = pd.DataFrame(results) 
 	
-	rows = "<thead><tr><th>ID</th><th>Description</th><th>Options</th></thead>"
+	rows = "<thead><tr><th>ID</th><th>Description</th><th>Cosine Similarity</th></thead>"
 	for index, row in df.iterrows():
 		
-		rows = rows + "<tr><td>"+str(row['ID'])+"</td><td>"+row['description']+"</td><td>"+""+"</td></tr>"
+		rows = rows + "<tr><td>"+str(row['ID'])+"</td><td>"+row['description']+"</td><td>"+str(row['Cosine_Similarity'])+"</td></tr>"
 		
 	
 	rows = rows + "</tobody>"			
