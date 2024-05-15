@@ -1,7 +1,7 @@
 # Summary
-IRIS-VectorLab is a web application that demonstrates the functionality of [**Vector Search**](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) with the help of [**embedded python**](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_epython). It leverages the functionality of the Python framework  [**SentenceTransformers**](https://www.sbert.net/) for state-of-the-art sentence embeddings.  
+IRIS-VectorLab is a web application that demonstrates the functionality of [**Vector Search**](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) with the help of [**embedded python**](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_epython). It leverages the functionality of the Python framework  [**SentenceTransformers**](https://www.sbert.net/) for state-of-the-art sentence embeddings and uses HuggingFace pipeline along with GPT2 LLM (Large Language Model) model for text generation. 
 
-[![one](https://img.shields.io/badge/Platform-InterSystems%20IRIS-blue)](https://www.intersystems.com/data-platform/) [![one](https://img.shields.io/badge/WebFrameWork-CSP-Orange)](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCSP) [![one](https://img.shields.io/badge/Technology-Vector%20Search-yellow)](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) [![one](https://img.shields.io/badge/Python%20Library-Sentence%20Transformers-Maroon)](https://www.sbert.net/) [![OEX](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)]() [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mwaseem75/iris-fhir-lab/blob/main/LICENSE)
+[![one](https://img.shields.io/badge/Platform-InterSystems%20IRIS-blue)](https://www.intersystems.com/data-platform/) [![one](https://img.shields.io/badge/WebFrameWork-CSP-Orange)](https://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCSP) [![one](https://img.shields.io/badge/Technology-Vector%20Search-yellow)](https://www.docs.intersystems.com/iris20241/csp/docbook/Doc.View.cls?KEY=GSQL_vecsearch) [![one](https://img.shields.io/badge/Python%20Library-Sentence%20Transformers-Maroon)](https://www.sbert.net/) [![one](https://img.shields.io/badge/Pipeline-Hugging%20Face-yellow)](https://huggingface.co/) [![one](https://img.shields.io/badge/LLM-GPT2-Purple)](https://huggingface.co/gpt2) [![OEX](https://img.shields.io/badge/Available%20on-Intersystems%20Open%20Exchange-00b2a9.svg)]() [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/mwaseem75/iris-fhir-lab/blob/main/LICENSE)
 
 ## Features
 * Text to Embeddings Translation.
@@ -9,6 +9,11 @@ IRIS-VectorLab is a web application that demonstrates the functionality of [**Ve
 * View Vector Data
 * Perform Vector Search by using VECTOR_DOT_PRODUCT and VECTOR_COSINE functions.
 * Demonstrate the difference between normal and vector search
+* HuggingFace Text generation with the help of GPT2 LLM (Large Language Model) model and Hugging Face pipeline
+
+## Application Interface
+<img width="956" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/2562b76e-987a-4661-ab34-192280855947">
+
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
@@ -78,11 +83,19 @@ set vector =  ##class(dc.VectorLab.Base).VectorSearch("The fox and the chicken")
 Application will get the top 5 similar records
 <img width="833" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/00e39315-7e86-4460-babf-e93339ea9716">
 
+### HuggingFace Text generation with the help of GPT2 LLM
+Run the below command by passing some text, application will generate the text accordingly to search vector data
+```
+set rc=##class(dc.VectorLab.Base).Generate("Generative AI is")
+write rc
+```
+<img width="836" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/24760123-9a19-4528-9378-8d69df757975">
 
 
 ## Test the functionality by Running Web Application
 Navigate to [http://localhost:52773/csp/vectorlab/index.csp](http://localhost:52773/csp/VectorLab/index.csp) to run the application. (by using demo|demo)
-<img width="841" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/8404f157-d1ac-4213-be6e-c875b8ef6fb5">
+<img width="956" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/5f6d7919-8d08-442e-82ed-210e1a064ef1">
+
 
 ### Add data with vector embeddings
 Click on the Resources List to view Resource records of the connected FHIR Server and further clink on the record itself to view JSON and Human readable details of selected Resource
@@ -112,6 +125,12 @@ Application will get the top 5 similar vector data.
 
 Now we will do a traditional search by clicking the Normal search button, as expected system will not retrieve any record.
 <img width="853" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/fcd8d095-590b-40dc-91aa-69635ae84f10">
+
+## HuggingFace Text generation with the help of GPT2 LLM and Hugging Face pipeline
+Navigate to [http://localhost:52773/csp/vectorlab/generate.csp](http://localhost:52773/csp/VectorLab/generate.csp) to run the application.
+
+Type some text and press generate button, application will generate the text accordingly with the help of GPT2 LLM (Large Language Model) model and Hugging Face pipeline
+<img width="855" alt="image" src="https://github.com/mwaseem75/iris-VectorLab/assets/18219467/13919c69-043a-4854-b65a-946f91c6e652">
 
 
 Thanks
