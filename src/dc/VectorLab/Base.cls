@@ -196,4 +196,21 @@ ClassMethod ListData() As %String [ Language = python ]
 	print(df.to_string())
 }
 
+ClassMethod Generate(txt As %String) As %String [ Language = python ]
+{
+       	
+    from transformers import pipeline
+    raw_text = txt
+    result = ''            
+    if len(raw_text.strip()) > 0:
+        classifier = pipeline('text-generation', model = 'gpt2')
+        text= classifier(raw_text, max_length = 30, num_return_sequences=3)            
+        result = ''
+        for obj in text:               
+            result =  result +'\n' + obj["generated_text"]             
+        return  result
+        
+    return ''
+}
+
 }
